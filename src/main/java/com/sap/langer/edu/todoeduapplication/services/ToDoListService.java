@@ -1,5 +1,7 @@
 package com.sap.langer.edu.todoeduapplication.services;
 
+import com.sap.langer.edu.todoeduapplication.restcontrolers.dtos.SetTaskStatusDTO;
+import com.sap.langer.edu.todoeduapplication.services.businessexceptions.ToDoTaskNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +50,13 @@ public class ToDoListService
 		log.info("Saved: " + saved);
 	}
 
+	public void setTaskStatus(final Long taskId, final SetTaskStatusDTO taskStatus)
+	{
+		ToDoTask task = toDoTaskRepository.findById(taskId).orElseThrow(() -> new ToDoTaskNotFoundException(taskId));
+		task.setStatus(ToDoStatus.valueOf(taskStatus.getStatus()));
+		toDoTaskRepository.save(task);
+	}
+
 	@Transactional
 	public void addTaskToToDoList(final NewToDoTask newToDoTask)
 	{
@@ -58,7 +67,6 @@ public class ToDoListService
 		toDoTask.setStatus(ToDoStatus.CREATED);
 		final ToDoTask saved = toDoTaskRepository.save(toDoTask);
 		log.info("Saved: " + saved);
-
 	}
 
 	private ToDoListDTO convertToDto(final ToDoList toDoList)

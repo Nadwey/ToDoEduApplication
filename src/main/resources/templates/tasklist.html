@@ -32,7 +32,7 @@
                 <td th:text="${task.title}"></td>
                 <td th:text="${task.description}"></td>
                 <td><label>
-                    <input th:checked="${task.status.toString()} == 'COMPLETED'" type="checkbox"/>
+                    <input th:attr="onclick=|updateTaskStatus(this, '${task.id}')|" th:checked="${task.status.toString()} == 'COMPLETED'" type="checkbox"/>
                     <span th:text="${task.status}"></span>
                 </label>
                 </td>
@@ -48,5 +48,18 @@
         </form>
     </div>
 </div>
+<script>
+    async function updateTaskStatus(e, taskId) {
+        await fetch(`/api/v1/task/${taskId}/setStatus`, {
+            method: "post",
+            body: JSON.stringify({
+                status: e.checked ? "COMPLETED" : "IN_PROGRESS"
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+</script>
 </body>
 </html>

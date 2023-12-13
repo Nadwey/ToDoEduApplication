@@ -2,6 +2,7 @@ package com.sap.langer.edu.todoeduapplication.restcontrolers;
 
 import java.util.List;
 
+import com.sap.langer.edu.todoeduapplication.restcontrolers.dtos.SetTaskStatusDTO;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,4 +35,7 @@ public class ToDoTaskListController {
 	{
 		toDoListService.createNewToDoList(toDoList);
 	}
+
+	@PostMapping("/task/{taskId}/setStatus")
+	public void setTaskStatus(@PathVariable final Long taskId, @RequestBody final SetTaskStatusDTO statusDTO) { toDoListService.setTaskStatus(taskId, statusDTO); }
 }
