@@ -1,5 +1,7 @@
 package com.sap.langer.edu.todoeduapplication.webcontrollers;
 
+import com.sap.langer.edu.todoeduapplication.domain.ToDoStatus;
+import com.sap.langer.edu.todoeduapplication.services.dtos.ToDoTaskDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,13 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.sap.langer.edu.todoeduapplication.services.ToDoListService;
 import com.sap.langer.edu.todoeduapplication.services.dtos.ToDoListDTO;
 import com.sap.langer.edu.todoeduapplication.webcontrollers.formdtos.NewToDoTask;
 import com.sap.langer.edu.todoeduapplication.webcontrollers.responses.ToDoListResponse;
-
 import lombok.extern.java.Log;
+import java.util.List;
 
 @Log
 @Controller
@@ -48,7 +49,11 @@ public class ToDoTaskListWebController {
 	}
 
    private ToDoListResponse findToDoList(final Long listId) {
-	   final ToDoListDTO toDoList = toDoListService.getToDoList(listId);
+	   ToDoListDTO toDoList = toDoListService.getToDoList(listId);
+	   // There's probably a much better way to do this
+	   List<ToDoTaskDTO> tasks = toDoList.getTasks();
+	   tasks.sort((o1, o2) -> Boolean.compare(o2.getStatus() == ToDoStatus.IN_PROGRESS, o1.getStatus() == ToDoStatus.IN_PROGRESS));
+	   toDoList.setTasks(tasks);
 	   return convertToResponse(toDoList);
    }
 
