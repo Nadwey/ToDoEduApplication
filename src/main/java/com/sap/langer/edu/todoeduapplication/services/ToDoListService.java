@@ -5,7 +5,6 @@ import com.sap.langer.edu.todoeduapplication.services.businessexceptions.ToDoTas
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.sap.langer.edu.todoeduapplication.domain.ToDoList;
 import com.sap.langer.edu.todoeduapplication.domain.ToDoListStatus;
 import com.sap.langer.edu.todoeduapplication.domain.ToDoStatus;
@@ -16,7 +15,6 @@ import com.sap.langer.edu.todoeduapplication.restcontrolers.dtos.NewToDoListDTO;
 import com.sap.langer.edu.todoeduapplication.services.businessexceptions.ToDoListNotFoundException;
 import com.sap.langer.edu.todoeduapplication.services.dtos.ToDoListDTO;
 import com.sap.langer.edu.todoeduapplication.webcontrollers.formdtos.NewToDoTask;
-
 import lombok.extern.java.Log;
 
 @Log

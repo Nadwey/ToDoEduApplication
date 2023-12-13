@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
